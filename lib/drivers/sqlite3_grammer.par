@@ -1,0 +1,59 @@
+
+/~ --- token definitions --- ~/
+!	' |\r|\n|\t|//[^\n]*\n' ;		/~ Characters to be ignored... ~/
+
+	"CREATE"
+	"TABLE"
+	'\('
+	'\)'
+	';'
+	','
+	"NOT"
+	"NULL"
+	"PRIMARY"
+	"KEY"
+	'[A-Za-z_][A-Za-z0-9_]*' Identifier
+	'[0-9]+' Integer
+	;
+
+##
+
+/~ --- grammar specification --- ~/
+
+CreateTableStmt:
+	CREATE TABLE Identifier '(' ColumnDefs ')' ';' [* global.parserResult = { tableName: %3, columns: %5 }; *]
+	;
+
+ColumnDefs:
+	ColumnDef ',' ColumnDefs                       [* %% = [ %1 ].concat(%3); *]
+	| ColumnDef                                    [* %% = [ %1 ]; *]
+	|
+	;
+	
+ColumnDef:
+	Identifier TypeName ColumnConstraints          [* %% = { name: %1, type: %2, columnConstraints: (%3 || []) }; *]
+	;
+
+TypeName:
+	Identifier
+	| Identifier '(' Integer ')' 
+	| Identifier '(' Integer ',' Integer ')'
+	;
+
+ColumnConstraints:
+	ColumnConstraints ColumnConstraint             [* %% = (%1 || []).concat([%2]); *]
+	|                                              [* %% = []; *]
+	;
+
+ColumnConstraint:
+	'PRIMARY' 'KEY'                                [* %% = 'PRIMARY KEY' *]
+	| 'NOT' 'NULL'                                 [* %% = 'NOT NULL' *]
+	;
+
+[*
+
+/* Switching one of these variables on will enable debug facilities
+	of the various parser drivers */
+//##PREFIX##_dbg_withtrace = true;
+
+*]
