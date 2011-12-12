@@ -54,5 +54,16 @@ exports['Sqlite'] = nodeunit.testCase({
 		test.done();
 	  });
 	});
+  },
+  "single table": function(test) {
+    var db = new sqlite3.Database(':memory:');
+    db.run("CREATE TABLE event (id INTEGER PRIMARY KEY AUTOINCREMENT, str TEXT UNIQUE, txt TEXT NOT NULL, intg INTEGER , rel REAL , dt INTEGER )", function() {
+      dbinfo.getInfo({
+        driver: 'sqlite3',
+        db: db
+      }, function(err, result) {
+        if(err) { console.error(err); return; }
+      }
+    }
   }
 });

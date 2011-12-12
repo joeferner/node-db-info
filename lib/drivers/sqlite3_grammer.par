@@ -12,6 +12,10 @@
 	"NULL"
 	"PRIMARY"
 	"KEY"
+  "AUTOINCREMENT"
+  "UNIQUE"
+  "DEFAULT"
+  "COLLATE"
 	'[A-Za-z_][A-Za-z0-9_]*' Identifier
 	'[0-9]+' Integer
 	;
@@ -48,6 +52,11 @@ ColumnConstraints:
 ColumnConstraint:
 	'PRIMARY' 'KEY'                                [* %% = 'PRIMARY KEY' *]
 	| 'NOT' 'NULL'                                 [* %% = 'NOT NULL' *]
+	| 'AUTOINCREMENT'                              [* %% = 'AUTOINCREMENT' *]
+	| 'UNIQUE'                                     [* %% = 'UNIQUE' *]
+	| 'DEFAULT' Integer                            [* %% = { name: 'DEFAULT', value: %2 }; *]
+	| 'DEFAULT' Identifier                         [* %% = { name: 'DEFAULT', value: %2 }; *]
+	| 'COLLATE' Identifier                         [* %% = { name: 'COLLATE', value: %2 }; *]
 	;
 
 [*
