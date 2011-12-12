@@ -20,10 +20,12 @@ function cleanupIdentifier(identifier) {
 
 	"CREATE"
 	"TABLE"
+	"INDEX"
 	'\('
 	'\)'
 	';'
 	','
+	"ON"
 	"NOT"
 	"NULL"
 	"PRIMARY"
@@ -40,8 +42,15 @@ function cleanupIdentifier(identifier) {
 
 /~ --- grammar specification --- ~/
 
-CreateTableStmt:
-	CREATE TABLE Identifier '(' ColumnDefs ')' ';' [* global.parserResult = { tableName: cleanupIdentifier(%3), columns: %5 }; *]
+CreateStmt:
+	CREATE TABLE Identifier '(' ColumnDefs ')' ';'                  [* global.parserResult = { type: 'CREATE TABLE', tableName: cleanupIdentifier(%3), columns: %5 }; *]
+	| CREATE INDEX Identifier ON Identifier '(' ColumnNames ')' ';' [* global.parserResult = { type: 'CREATE INDEX', indexName: cleanupIdentifier(%3), tableName: cleanupIdentifier(%5), columns: %7 }; *]
+	;
+
+ColumnNames:
+  Identifier ',' ColumnNames                     [* %% = [ %1 ].concat(%3); *]
+	| Identifier                                   [* %% = [ %1 ]; *]
+	|
 	;
 
 ColumnDefs:
@@ -74,4 +83,3 @@ ColumnConstraint:
 	| 'DEFAULT' Identifier                         [* %% = { name: 'DEFAULT', value: %2 }; *]
 	| 'COLLATE' Identifier                         [* %% = { name: 'COLLATE', value: %2 }; *]
 	;
-

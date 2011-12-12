@@ -58,8 +58,9 @@ exports['Sqlite'] = nodeunit.testCase({
 
   "more complex table": function(test) {
     var db = new sqlite3.Database(':memory:');
-    db.run("CREATE TABLE \"event\" (id INTEGER PRIMARY KEY AUTOINCREMENT, str TEXT UNIQUE, txt TEXT NOT NULL, intg INTEGER , rel REAL , dt INTEGER )",
-			function() {
+    db.run("CREATE TABLE \"event\" (id INTEGER PRIMARY KEY AUTOINCREMENT, str TEXT UNIQUE, txt TEXT NOT NULL, intg INTEGER , rel REAL , dt INTEGER );", function() {
+		db.run("CREATE INDEX strIndex on event (str);", function() {
+		db.run("CREATE INDEX txtIndex on event (txt);", function() {
 				dbinfo.getInfo({
 					driver: 'sqlite3',
 					db: db
@@ -99,9 +100,17 @@ exports['Sqlite'] = nodeunit.testCase({
 					test.equal(eventTable.columns['dt'].name, 'dt');
 					test.equal(eventTable.columns['dt'].type, dbinfo.INTEGER);
 
+					test.ok(eventTable.indexes['strIndex']);
+					test.ok(eventTable.indexes['strIndex'].name, 'strIndex');
+					test.ok(eventTable.indexes['strIndex'].columns, ['str']);
+
+					test.ok(eventTable.indexes['txtIndex']);
+					test.ok(eventTable.indexes['txtIndex'].name, 'txtIndex');
+					test.ok(eventTable.indexes['txtIndex'].columns, ['txt']);
+
 					db.close();
 					test.done();
-				});
+				}) }) });
 			}
     );
   }
