@@ -21,12 +21,12 @@ The following databases are currently supported:
         tables: {
           person: {
             name: 'person',
-            columns: [
-              { name: 'id', notNull: true, primaryKey: true, type: 'integer', length: '11' },
-              { name: 'name', notNull: true, type: 'varchar', length: '255' },
-              { name: 'email', notNull: false, type: 'varchar', length: '100' },
-              { name: 'age', notNull: false, type: 'integer', length: '11' }
-            ]
+            columns: {
+              'id': { name: 'id', notNull: true, primaryKey: true, type: 'integer', length: '11' },
+              'name': { name: 'name', notNull: true, type: 'varchar', length: '255' },
+              'email': { name: 'email', notNull: false, type: 'varchar', length: '100' },
+              'age': { name: 'age', notNull: false, type: 'integer', length: '11' }
+            }
           }
         }
       } */
@@ -37,7 +37,7 @@ The following databases are currently supported:
 You can install using Node Package Manager (npm):
 
     npm install async
-    
+
 ## Documentation
 
 ### getInfo(opts, callback)
@@ -52,10 +52,10 @@ __Arguments__
   * _other_ - will be passed to the drivers connect.
  * callback(err, result) - Callback called once complete. result will contain a hash containing all the tables
    along with column information.
-   
+
 __Example__
     var db = new sqlite3.Database(':memory:');
-    
+
     dbinfo.getInfo({
       driver: 'sqlite3',
       db: db
