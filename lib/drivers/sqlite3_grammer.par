@@ -1,4 +1,20 @@
 
+[*
+
+/* Switching one of these variables on will enable debug facilities
+	of the various parser drivers */
+//##PREFIX##_dbg_withtrace = true;
+
+function cleanupIdentifier(identifier) {
+  var match = identifier.match(/["'](.*)["']/);
+	if(match) {
+	  identifier = match[1];
+	}
+  return identifier;
+}
+
+*]
+
 /~ --- token definitions --- ~/
 !	' |\r|\n|\t|//[^\n]*\n' ;		/~ Characters to be ignored... ~/
 
@@ -16,7 +32,7 @@
   "UNIQUE"
   "DEFAULT"
   "COLLATE"
-	'[A-Za-z_][A-Za-z0-9_]*' Identifier
+	'[\'"]?[A-Za-z_][A-Za-z0-9_]*[\'"]?' Identifier
 	'[0-9]+' Integer
 	;
 
@@ -25,7 +41,7 @@
 /~ --- grammar specification --- ~/
 
 CreateTableStmt:
-	CREATE TABLE Identifier '(' ColumnDefs ')' ';' [* global.parserResult = { tableName: %3, columns: %5 }; *]
+	CREATE TABLE Identifier '(' ColumnDefs ')' ';' [* global.parserResult = { tableName: cleanupIdentifier(%3), columns: %5 }; *]
 	;
 
 ColumnDefs:
@@ -33,14 +49,14 @@ ColumnDefs:
 	| ColumnDef                                    [* %% = [ %1 ]; *]
 	|
 	;
-	
+
 ColumnDef:
 	Identifier TypeName ColumnConstraints          [* %% = { name: %1, type: %2, columnConstraints: (%3 || []) }; *]
 	;
 
 TypeName:
 	Identifier
-	| Identifier '(' Integer ')' 
+	| Identifier '(' Integer ')'
 	| Identifier '(' Integer ',' Integer ')'
 	;
 
@@ -59,10 +75,3 @@ ColumnConstraint:
 	| 'COLLATE' Identifier                         [* %% = { name: 'COLLATE', value: %2 }; *]
 	;
 
-[*
-
-/* Switching one of these variables on will enable debug facilities
-	of the various parser drivers */
-//##PREFIX##_dbg_withtrace = true;
-
-*]
