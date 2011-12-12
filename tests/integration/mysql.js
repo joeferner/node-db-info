@@ -3,7 +3,11 @@ var dbinfo = require("../../lib/db_info");
 var nodeunit = require("nodeunit");
 var sqlite3 = require("mysql");
 
-// CREATE TABLE person (id INTEGER PRIMARY KEY, name VARCHAR(255) NOT NULL, email VARCHAR(100), age INTEGER);
+/*
+ CREATE TABLE person (id INTEGER PRIMARY KEY, name VARCHAR(255) NOT NULL, email VARCHAR(100), age INTEGER);
+ CREATE INDEX nameIndex ON person (name);
+ CREATE INDEX otherIndex ON person (name,email);
+*/
 exports['Mysql'] = nodeunit.testCase({
   setUp: function(callback) {
 	callback();
@@ -52,6 +56,14 @@ exports['Mysql'] = nodeunit.testCase({
 	  test.equal(personTable.columns['age'].type, dbinfo.INTEGER);
 	  test.ok(!personTable.columns['age'].primaryKey);
 	  test.ok(!personTable.columns['age'].notNull);
+
+		test.ok(personTable.indexes['nameIndex']);
+		test.ok(personTable.indexes['nameIndex'].name, 'nameIndex');
+		test.ok(personTable.indexes['nameIndex'].columns, ['name']);
+
+		test.ok(personTable.indexes['otherIndex']);
+		test.ok(personTable.indexes['otherIndex'].name, 'otherIndex');
+		test.ok(personTable.indexes['otherIndex'].columns, ['name', 'email']);
 
 	  test.done();
 	});
