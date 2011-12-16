@@ -1,0 +1,34 @@
+#!/usr/bin/env node
+
+var optimist = require('optimist');
+var dbInfo = require('../');
+
+var argv = optimist
+    .default({ verbose: false })
+    .usage('Usage: db-info [options]')
+
+    .describe('driver', 'The driver to use to connect to the database.')
+    .alias('d', 'driver')
+    .string('d')
+
+    .describe('verbose', 'Verbose mode.')
+    .alias('v', 'verbose')
+    .boolean('v')
+
+    .alias('h', 'help')
+    .alias('h', '?')
+    .boolean('h')
+
+    .demand(['driver'])
+
+    .argv
+
+if (argv.help) {
+  optimist.showHelp();
+  process.exit(1);
+}
+
+dbInfo.getInfo(argv, function(err, results) {
+  if(err) { console.error(err); return; }
+  console.log(JSON.stringify(results, null, 2));
+});

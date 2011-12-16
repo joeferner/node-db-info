@@ -40,6 +40,10 @@ You can install using Node Package Manager (npm):
 
 ## Documentation
 
+### Command Line
+
+    db-info --driver pg --connectionString=--connectionString=tcp://test:test@localhost/test
+
 ### getInfo(opts, callback)
 
 Gets the metadata from a database.
@@ -47,7 +51,7 @@ Gets the metadata from a database.
 __Arguments__
 
  * opts - A hash of options.
-  * driver - can be either "mysql" or "sqlite3"
+  * driver - can be either "mysql", "sqlite3", or "pg" (PostgreSQL)
   * _db_ - if db is passed in this connection will be used instead of making a new connection.
   * _other_ - will be passed to the drivers connect.
  * callback(err, result) - Callback called once complete. result will contain a hash containing all the tables

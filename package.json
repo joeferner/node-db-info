@@ -1,7 +1,7 @@
 {
   "name": "db-info",
   "description": "Node.js relational database information utility",
-  "keywords": ["database", "db", "sqlite", "mysql"],
+  "keywords": ["database", "db", "sqlite", "mysql", "PostgreSQL"],
   "homepage": "https://github.com/nearinfinity/node-db-info",
   "version": "0.0.1",
   "engines": { "node" : ">=0.6.0" },
@@ -15,8 +15,7 @@
     { "type": "git", "url": "https://github.com/nearinfinity/node-db-info.git" }
   ],
   "dependencies": {
-    "sqlite3": "~>2.1.1",
-    "mysql": "~>0.9.5",
+    "optimist": "~0.3.0",
     "async": "~>0.1.15"
   },
   "devDependencies": {
