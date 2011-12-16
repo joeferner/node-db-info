@@ -7,6 +7,8 @@ The following databases are currently supported:
 
  * sqlite3 - via: [node-sqlite3](https://github.com/developmentseed/node-sqlite3)
  * mysql - via: [node-mysql](https://github.com/felixge/node-mysql)
+ * PostgreSQL - via: [node-postgres](https://github.com/brianc/node-postgres)
+ * Oracle - via: [node-oracle](https://github.com/mariano/node-db-oracle)
 
 ## Quick Examples
     var dbinfo = require("db-info");
@@ -51,7 +53,7 @@ Gets the metadata from a database.
 __Arguments__
 
  * opts - A hash of options.
-  * driver - can be either "mysql", "sqlite3", or "pg" (PostgreSQL)
+  * driver - can be either "mysql", "sqlite3", "db-oracle", or "pg" (PostgreSQL)
   * _db_ - if db is passed in this connection will be used instead of making a new connection.
   * _other_ - will be passed to the drivers connect.
  * callback(err, result) - Callback called once complete. result will contain a hash containing all the tables

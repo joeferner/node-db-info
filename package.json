@@ -1,7 +1,7 @@
 {
   "name": "db-info",
   "description": "Node.js relational database information utility",
-  "keywords": ["database", "db", "sqlite", "mysql", "PostgreSQL"],
+  "keywords": ["database", "db", "sqlite", "mysql", "PostgreSQL", "oracle", "db-oracle"],
   "homepage": "https://github.com/nearinfinity/node-db-info",
   "version": "0.0.2",
   "engines": { "node" : ">=0.6.0" },
