@@ -3,7 +3,7 @@
   "description": "Node.js relational database information utility",
   "keywords": ["database", "db", "sqlite", "mysql", "PostgreSQL"],
   "homepage": "https://github.com/nearinfinity/node-db-info",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": { "node" : ">=0.6.0" },
   "maintainers": [
     { "name": "Joe Ferner", "email": "joe.ferner@nearinfinity.com" },

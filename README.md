@@ -42,7 +42,7 @@ You can install using Node Package Manager (npm):
 
 ### Command Line
 
-    db-info --driver pg --connectionString=--connectionString=tcp://test:test@localhost/test
+    db-info --driver=pg --connectionString=--connectionString=tcp://test:test@localhost/test
 
 ### getInfo(opts, callback)
 
