@@ -11,6 +11,7 @@ The following databases are currently supported:
  * Oracle - via: [node-oracle](https://github.com/mariano/node-db-oracle)
 
 ## Quick Examples
+
     var dbinfo = require("db-info");
 
     dbinfo.getInfo({
@@ -60,6 +61,7 @@ __Arguments__
    along with column information.
 
 __Example__
+
     var db = new sqlite3.Database(':memory:');
 
     dbinfo.getInfo({
