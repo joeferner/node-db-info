@@ -2,18 +2,15 @@
   "name": "db-info",
   "description": "Node.js relational database information utility",
   "keywords": ["database", "db", "sqlite", "mysql", "PostgreSQL", "oracle", "db-oracle"],
-  "homepage": "https://github.com/nearinfinity/node-db-info",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "engines": { "node" : ">=0.6.0" },
   "maintainers": [
     { "name": "Joe Ferner", "email": "joe.ferner@nearinfinity.com" },
     { "name": "Jeff Kunkle", "email": "jeff.kunkle@nearinfinity.com" }
   ],
   "bugs": { "url": "https://github.com/nearinfinity/node-db-info/issues" },
-  "licenses": [ { "type" : "MIT" } ],
-  "repositories": [
-    { "type": "git", "url": "https://github.com/nearinfinity/node-db-info.git" }
-  ],
+  "license": "MIT",
+  "repository": { "type": "git", "url": "https://github.com/nearinfinity/node-db-info.git" },
   "dependencies": {
     "optimist": "~0.3.0",
     "async": "~>0.1.15"
