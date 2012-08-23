@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/nearinfinity/node-db-info.png)](http://travis-ci.org/nearinfinity/node-db-info)
 # db-info
 
 db-info is a utility module which provides a database independent way of
